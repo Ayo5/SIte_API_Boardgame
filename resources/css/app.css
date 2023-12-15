@@ -1,0 +1,46 @@
+/* resources/css/app.css */
+
+/* Importer les styles de base de Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Styles personnalisés pour la page index */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.game-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* resources/css/app.css */
+
+/* ... Autres styles Tailwind ... */
+
+.game-image {
+    max-width: 500px; /* Définir une largeur maximale de 500px */
+    max-height: 500px; /* Définir une hauteur maximale de 500px */
+    width: 100%; /* Garantir que la largeur occupe 100% de l'espace disponible */
+    height: auto; /* Ajuster automatiquement la hauteur pour conserver les proportions */
+    border-radius: 8px;
+    object-fit: cover; /* Ajuster l'image pour couvrir toute la zone définie */
+}
