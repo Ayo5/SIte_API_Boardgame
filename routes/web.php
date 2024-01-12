@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 Route::get('/index', [BoardGameController::class, 'index']);
 
+Route::get('/create', [BoardGameController::class, 'create']);
+Route::post('/store', [BoardGameController::class, 'store']);

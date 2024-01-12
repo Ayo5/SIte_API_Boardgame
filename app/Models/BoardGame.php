@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class BoardGame
-{
+use Illuminate\Database\Eloquent\Model;
 
+class BoardGame extends Model
+{
+    protected $fillable = ['name', 'image'];
 }

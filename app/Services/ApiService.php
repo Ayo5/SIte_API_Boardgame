@@ -29,4 +29,28 @@ class ApiService
 
         return null;
     }
+
+    public function addGame($gameData)
+    {
+        try {
+            // Log the game data
+            \Log::info('Adding game with data: ', $gameData);
+
+            $response = $this->client->post($this->apiUrl . '/api/board-games', [
+                'json' => $gameData
+            ]);
+
+            // Log the API response
+            $responseContent = json_decode($response->getBody()->getContents(), true);
+            \Log::info('API response: ', $responseContent);
+
+            return $responseContent;
+        } catch (\Exception $e) {
+            // Log the error message
+            \Log::error('Error when adding game: ',  ['error' => $e->getMessage()]);
+        }
+
+        return null;
+    }
+
 }
