@@ -19,9 +19,14 @@ class ApiService
 
     public function getAllData()
     {
-        $response = $this->client->get($this->apiUrl);
-        return json_decode($response->getBody()->getContents(), true);
-    }
+        try {
+            $response = $this->client->get($this->apiUrl . '/api/board-games');
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (\Exception $e) {
+            // Display the error message for debugging
+            echo 'Error when retrieving data: ',  $e->getMessage(), "\n";
+        }
 
-    // Ajoutez d'autres méthodes pour les opérations CRUD
+        return null;
+    }
 }

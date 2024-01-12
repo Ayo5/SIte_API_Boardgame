@@ -17,6 +17,7 @@ class BoardGameController extends Controller
     public function index()
     {
         $data = $this->apiService->getAllData();
+        var_dump($data); // ou dd($data);
         return view('index', compact('data'));
     }
 
