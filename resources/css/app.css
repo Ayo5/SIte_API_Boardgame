@@ -58,3 +58,13 @@ footer {
     margin: 0 auto; /* Centrer l'image horizontalement */
     display: block; /* Permet de définir les marges automatiques */
 }
+
+.btn-game {
+    background-color: #980101;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}

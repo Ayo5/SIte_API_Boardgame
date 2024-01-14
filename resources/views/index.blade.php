@@ -2,6 +2,7 @@
 <x-layout>
 <body>
 
+<button class="btn-game"><a href="/create">Ajouter </a></button>
 <h2> Filtrage par catégorie</h2>
 <form class="form" action="{{ route('index') }}" method="get">
     <select name="cat" onchange='this.form.submit()'>
@@ -13,6 +14,7 @@
 </form>
 
 </form>
+
 <h1> Liste des jeux </h1>
 <div class="container">
     @foreach($data as $d)
@@ -21,6 +23,8 @@
             <img src="{{ asset($d['image']) }}" alt="Description de l'image" class="game-image">
             <p class="game-description">{{ $d['description'] }}</p>
             <p class="game-price">{{ $d['price'] }} €</p>
+            <button class="btn-game"><a href="/edit">Editer </a></button>
+            <button class="btn-game"><a href="/delete">Supprimer </a></button>
 
         </div>
     @endforeach
