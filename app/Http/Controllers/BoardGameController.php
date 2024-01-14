@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BoardGame;
 use App\Services\ApiService;
+use Illuminate\Http\Request;
+
 
 class BoardGameController extends Controller
 {
@@ -14,10 +16,16 @@ class BoardGameController extends Controller
         $this->apiService = $apiService;
     }
 
-    public function index()
+
+
+    public function index(Request $request, ApiService $apiService)
     {
-        $data = $this->apiService->getAllData();
-        return view('index', compact('data'));
+        $cat = $request->get('cat', 'All');
+        $data = $apiService->getAllData();
+
+
+        return view('index', compact('data', 'cat'));
     }
+
 
 }

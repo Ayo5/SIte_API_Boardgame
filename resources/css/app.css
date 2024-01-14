@@ -32,15 +32,29 @@ body {
     margin-bottom: 10px;
 }
 
-/* resources/css/app.css */
+/* Ajouter une barre rouge à l'en-tête */
+header {
+    background-color: #980101; /* Rouge */
+    color: #fff; /* Texte blanc sur fond rouge */
+    padding: 10px;
+}
 
-/* ... Autres styles Tailwind ... */
+/* Ajouter une barre rouge au pied de page */
+footer {
+    background-color: #980101; /* Rouge */
+    color: #fff; /* Texte blanc sur fond rouge */
+    padding: 10px;
+    text-align: center; /* Centrer le texte dans le footer */
+}
 
+/* Centrer les images */
 .game-image {
-    max-width: 500px; /* Définir une largeur maximale de 500px */
-    max-height: 500px; /* Définir une hauteur maximale de 500px */
-    width: 100%; /* Garantir que la largeur occupe 100% de l'espace disponible */
-    height: auto; /* Ajuster automatiquement la hauteur pour conserver les proportions */
+    max-width: 400px;
+    max-height: 400px;
+    width: 100%;
+    height: auto;
     border-radius: 8px;
-    object-fit: cover; /* Ajuster l'image pour couvrir toute la zone définie */
+    object-fit: cover;
+    margin: 0 auto; /* Centrer l'image horizontalement */
+    display: block; /* Permet de définir les marges automatiques */
 }

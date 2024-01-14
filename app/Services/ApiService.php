@@ -23,5 +23,8 @@ class ApiService
         return json_decode($response->getBody()->getContents(), true);
     }
 
+
+
+
     // Ajoutez d'autres méthodes pour les opérations CRUD
 }
