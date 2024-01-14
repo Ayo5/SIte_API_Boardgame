@@ -60,6 +60,12 @@ class BoardGameController extends Controller
         }
     }
 
+    public function create()
+    {
+        return view('create');
+    }
+
+
     public function update(Request $request, $id)
     {
         $data = $this->apiService->getAllData();
@@ -91,7 +97,6 @@ class BoardGameController extends Controller
 
         $data = $this->apiService->getAllData();
 
-        // Filtrer les détails du jeu en fonction de l'ID
         $filteredData = array_filter($data, function ($value) use ($id) {
             return $value['id'] == $id;
         });
@@ -111,4 +116,16 @@ class BoardGameController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $this->apiService->addGame($validatedData);
+        return redirect()->route('index')->with('success', 'Le jeu a été ajouté avec succès.');
+    }
 }

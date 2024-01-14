@@ -3,8 +3,7 @@
 <div class="container">
     <h1>Ajouter un jeu</h1>
 
-    <!-- Formulaire d'ajout de jeu -->
-    <form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('game.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div>

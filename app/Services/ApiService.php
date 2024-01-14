@@ -1,9 +1,5 @@
 <?php
 
-// app/Services/ApiService.php
-
-// app/Services/ApiService.php
-
 namespace App\Services;
 
 use GuzzleHttp\Client;
@@ -46,5 +42,25 @@ class ApiService
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    // Ajoutez d'autres méthodes pour les opérations CRUD
+    public function addGame($gameData)
+    {
+        try {
+            \Log::info('Adding game with data: ', $gameData);
+
+            $response = $this->client->post($this->apiUrl . '/api/board-games', [
+                'json' => $gameData
+            ]);
+
+            $responseContent = json_decode($response->getBody()->getContents(), true);
+            \Log::info('API response: ', $responseContent);
+
+            return $responseContent;
+        } catch (\Exception $e) {
+            \Log::error('Error when adding game: ',  ['error' => $e->getMessage()]);
+        }
+
+        return null;
+    }
+
+
 }
