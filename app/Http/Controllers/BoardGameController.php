@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BoardGame;
 use App\Services\ApiService;
 use Illuminate\Http\Request;
 
@@ -28,18 +27,14 @@ class BoardGameController extends Controller
 
     public function show($id, ApiService $apiService)
     {
-        $gameDetails = $apiService->getAllData();
-
-        // Filtrer les détails du jeu en fonction de l'ID
-        $filteredDetails = array_filter($gameDetails, function ($value) use ($id) {
+        $data = $apiService->getAllData();
+        $filteredData = array_filter($data, function ($value) use ($id) {
             return $value['id'] == $id;
         });
+        if ($filteredData) {
+            $gameData = reset($filteredData);
 
-        if ($filteredDetails) {
-            // Utiliser reset() pour obtenir le premier élément du tableau filtré
-            $firstDetail = reset($filteredDetails);
-
-            return view('show', compact('firstDetail'));
+            return view('show', compact('gameData'));
         } else {
             return 'Aucune donnée disponible pour l\'ID spécifié.';
         }
@@ -47,18 +42,15 @@ class BoardGameController extends Controller
 
     public function edit($id, ApiService $apiService)
     {
-        $gameDetails = $apiService->getAllData();
-
-        // Filtrer les détails du jeu en fonction de l'ID
-        $filteredDetails = array_filter($gameDetails, function ($value) use ($id) {
+        $data = $apiService->getAllData();
+        $filteredData = array_filter($data, function ($value) use ($id) {
             return $value['id'] == $id;
         });
 
-        if ($filteredDetails) {
-            // Utiliser reset() pour obtenir le premier élément du tableau filtré
-            $firstDetail = reset($filteredDetails);
+        if ($filteredData) {
+            $gameData = reset($filteredData);
 
-            return view('edit', compact('firstDetail'));
+            return view('edit', compact('gameData'));
         } else {
             return 'Aucune donnée disponible pour l\'ID spécifié.';
         }
@@ -66,26 +58,22 @@ class BoardGameController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Récupérer les détails du jeu par ID
-        $gameDetails = $this->apiService->getAllData();
+        $data = $this->apiService->getAllData();
 
-        $filteredDetails = array_filter($gameDetails, function ($value) use ($id) {
+        $filteredData = array_filter($data, function ($value) use ($id) {
             return $value['id'] == $id;
         });
 
-        if ($filteredDetails) {
-            // Récupérer le premier élément du tableau filtré
-            $firstDetail = reset($filteredDetails);
+        if ($filteredData) {
+            $gameData = reset($filteredData);
 
-            if ($firstDetail) {
-                // Mettre à jour les détails du jeu avec les données du formulaire
-                $firstDetail['name'] = $request->input('name');
-                $firstDetail['description'] = $request->input('description');
-                $firstDetail['price'] = $request->input('price');
-                // ... mettez à jour d'autres champs en conséquence
+            if ($gameData) {
 
-                // Enregistrez les modifications à l'aide de la méthode editData de votre service
-                $this->apiService->editData($id, $firstDetail);
+                $gameData['name'] = $request->input('name');
+                $gameData['description'] = $request->input('description');
+                $gameData['price'] = $request->input('price');
+
+                $this->apiService->editData($id, $gameData);
 
                 return redirect()->route('show', ['id' => $id])->with('success', 'Le jeu a été modifié avec succès.');
             } else {
@@ -96,20 +84,18 @@ class BoardGameController extends Controller
 
     public function destroy($id)
     {
-        // Récupérer les détails du jeu par ID
-        $gameDetails = $this->apiService->getAllData();
+
+        $data = $this->apiService->getAllData();
 
         // Filtrer les détails du jeu en fonction de l'ID
-        $filteredDetails = array_filter($gameDetails, function ($value) use ($id) {
+        $filteredData = array_filter($data, function ($value) use ($id) {
             return $value['id'] == $id;
         });
 
-        if ($filteredDetails) {
-            // Récupérer le premier élément du tableau filtré
-            $firstDetail = reset($filteredDetails);
+        if ($filteredData) {
+            $gameData = reset($filteredData);
 
-            if ($firstDetail) {
-                // Supprimer le jeu à l'aide de la méthode deleteData de votre service
+            if ($gameData) {
                 $this->apiService->deleteData($id);
 
                 return redirect()->route('index')->with('success', 'Le jeu a été supprimé avec succès.');

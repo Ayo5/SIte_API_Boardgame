@@ -3,26 +3,25 @@
     <div class="container">
         <h1>Modifier un jeu</h1>
 
-        <form action="{{ route('update',['id'=> $firstDetail['id']]) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('update',['id'=> $gameData['id']]) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <!-- Ajoutez un champ caché pour l'ID du jeu -->
-            <input type="hidden" name="id" value="{{ $firstDetail['id'] }}">
+            <input type="hidden" name="id" value="{{ $gameData['id'] }}">
 
             <div>
                 <label for="name">Nom :</label>
-                <input type="text" id="name" name="name" value="{{ $firstDetail['name'] }}" required>
+                <input type="text" id="name" name="name" value="{{ $gameData['name'] }}" required>
             </div>
 
             <div>
                 <label for="description">Description :</label>
-                <textarea id="description" name="description" required>{{ $firstDetail['description'] }}</textarea>
+                <textarea id="description" name="description" required>{{ $gameData['description'] }}</textarea>
             </div>
 
             <div>
                 <label for="price">Prix :</label>
-                <input type="number" step="0.01" id="price" name="price" value="{{ $firstDetail['price'] }}" required>
+                <input type="number" step="0.01" id="price" name="price" value="{{ $gameData['price'] }}" required>
             </div>
 
             <div>
