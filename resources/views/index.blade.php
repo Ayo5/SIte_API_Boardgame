@@ -24,8 +24,13 @@
             <p class="game-description">{{ $d['description'] }}</p>
             <p class="game-price">{{ $d['price'] }} €</p>
             <button class="btn-game"><a href="{{ route('show', ['id' => $d['id']])}}">Détails </a></button>
-            <button class="btn-game"><a href="/edit">Editer </a></button>
-            <button class="btn-game"><a href="/delete">Supprimer </a></button>
+            <button class="btn-game"><a href="{{ route('edit', ['id' => $d['id']])}}">Editer </a></button>
+
+            <form action="{{ route('delete', ['id' => $d['id']]) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn-game">Supprimer</button>
+            </form>
 
         </div>
     @endforeach

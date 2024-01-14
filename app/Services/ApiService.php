@@ -2,6 +2,8 @@
 
 // app/Services/ApiService.php
 
+// app/Services/ApiService.php
+
 namespace App\Services;
 
 use GuzzleHttp\Client;
@@ -23,17 +25,26 @@ class ApiService
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getGameDetails($id)
+
+    public function editData($id, $data)
     {
+        $editUrl = $this->apiUrl . '/' . $id;
 
-            $response = $this->client->get($this->apiUrl . '/api/board-games/' . $id);
-            $gameDetails = json_decode($response->getBody()->getContents(), true);
+        $response = $this->client->put($editUrl, [
+            'json' => $data
+        ]);
 
-            // Log the game details
-            \Log::info('Game details from API: ', $gameDetails);
-
-            return $gameDetails;
-
+        return json_decode($response->getBody()->getContents(), true);
     }
-// Ajoutez d'autres méthodes pour les opérations CRUD
+
+    public function deleteData($id)
+    {
+        $deleteUrl = $this->apiUrl . '/' . $id;
+
+        $response = $this->client->delete($deleteUrl);
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    // Ajoutez d'autres méthodes pour les opérations CRUD
 }

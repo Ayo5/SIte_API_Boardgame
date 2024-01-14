@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BoardGameController::class, 'index'])->name('index');
 Route::get('/game/{id}', [BoardGameController::class, 'show'])->name('show');
+Route::get('/game/{id}/edit', [BoardGameController::class, 'edit'])->name('edit');
+Route::put('/game/{id}', [BoardGameController::class, 'update'])->name('update');
+Route::delete('/game/{id}', [BoardGameController::class, 'destroy'])->name('delete');
+

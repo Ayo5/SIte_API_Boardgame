@@ -13,6 +13,8 @@
     <p>Évaluation : {{ $firstDetail['rating'] }}</p>
     <p>Nombre d'évaluations : {{ $firstDetail['number_rating'] }}</p>
     <p>Date de publication : {{ $firstDetail['published_date'] }}</p>
+        <button class="btn-game"><a href="{{ route('edit', ['id' => $firstDetail['id']])}}">Editer </a></button>
+        <button class="btn-game"><a href="/delete">Supprimer </a></button>
     </div>
 </div>
 </body>
