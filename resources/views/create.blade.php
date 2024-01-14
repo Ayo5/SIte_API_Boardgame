@@ -9,16 +9,38 @@
 </head>
 <body>
 <div class="container">
-    <form action="/store" method="post" enctype="multipart/form-data">
+    <h1>Ajouter un jeu</h1>
+
+    <!-- Formulaire d'ajout de jeu -->
+    <form action="{{ route('game.store') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <label for="name">Nom du jeu</label>
-        <input type="text" id="name" name="name" required>
 
-        <label for="image">Image du jeu</label>
-        <input type="file" id="image" name="image" required>
+        <div>
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
+        </div>
 
-        <button type="submit">Ajouter le jeu</button>
+        <div>
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
+
+        <div>
+            <label for="price">Prix :</label>
+            <input type="number" step="0.01" id="price" name="price" required>
+        </div>
+
+        <div>
+            <label for="image">Image :</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+
+        <div>
+            <button type="submit">Ajouter le jeu</button>
+        </div>
     </form>
+
+    <a href="{{ route('game.index') }}">Retour à la liste des jeux</a>
 </div>
 </body>
 </html>

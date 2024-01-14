@@ -9,12 +9,17 @@
 </head>
 <body>
 <div class="container">
-    @foreach($data as $d)
-        <div class="game-card">
-            <p class="game-title">{{ $d['name'] }}</p>
-            <img src="{{ asset($d['image']) }}" alt="Description de l'image" class="game-image">
-        </div>
-    @endforeach
+    @if(isset($data) && is_array($data))
+        @foreach($data as $d)
+            <div class="game-card">
+                <p class="game-title">{{ $d['name'] }}</p>
+                <img src="{{ asset($d['image']) }}" alt="{{ $d['name'] }}" class="game-image">
+                <a href="{{ route('game.show', ['id' => $d['id']]) }}">Voir les détails</a>
+            </div>
+        @endforeach
+    @else
+        <p>No data available.</p>
+    @endif
 </div>
 </body>
 </html>

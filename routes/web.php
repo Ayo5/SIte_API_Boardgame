@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/index', [BoardGameController::class, 'index']);
+Route::get('/index', [BoardGameController::class, 'index'])->name('game.index');
 
 Route::get('/create', [BoardGameController::class, 'create']);
-Route::post('/store', [BoardGameController::class, 'store']);
+Route::post('/store', [BoardGameController::class, 'store'])->name('game.store');
+Route::get('/game/{id}', [BoardGameController::class, 'show'])->name('game.show');
+

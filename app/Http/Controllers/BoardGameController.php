@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\BoardGame;
 use App\Services\ApiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+
 
 class BoardGameController extends Controller
 {
@@ -17,7 +21,9 @@ class BoardGameController extends Controller
 
     public function index()
     {
-        $data = $this->apiService->getAllData();
+        $data = session('data') ?? $this->apiService->getAllData();
+        Log::info('Data for index view: ', (array) $data);
+
         return view('index', compact('data'));
     }
 
@@ -25,23 +31,33 @@ class BoardGameController extends Controller
     {
         return view('create');
     }
-
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'image' => 'required|image',
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
         ]);
 
         $imagePath = $request->file('image')->store('images', 'public');
-
-        $gameData = [
-            'name' => $data['name'],
-            'image' => $imagePath,
-        ];
-
-        $this->apiService->addGame($gameData);
-
-        return redirect('/index');
+        $validatedData['image'] = $imagePath;
+        $apiService = new ApiService();
+        $apiService->addGame($validatedData);
+        return redirect()->route('game.index');
     }
+
+
+    public function show($id)
+    {
+        $gameDetails = $this->apiService->getGameDetails($id);
+
+        if ($gameDetails) {
+            return view('show', compact('gameDetails'));
+        } else {
+            return 'Aucune donnée disponible.';
+        }
+    }
+
+
+
 }

@@ -21,9 +21,13 @@ class ApiService
     {
         try {
             $response = $this->client->get($this->apiUrl . '/api/board-games');
-            return json_decode($response->getBody()->getContents(), true);
+            $data = json_decode($response->getBody()->getContents(), true);
+
+            // Log the data
+            \Log::info('Data from API: ', (array) $data);
+
+            return $data;
         } catch (\Exception $e) {
-            // Display the error message for debugging
             echo 'Error when retrieving data: ',  $e->getMessage(), "\n";
         }
 
@@ -33,21 +37,53 @@ class ApiService
     public function addGame($gameData)
     {
         try {
-            // Log the game data
             \Log::info('Adding game with data: ', $gameData);
 
             $response = $this->client->post($this->apiUrl . '/api/board-games', [
                 'json' => $gameData
             ]);
 
-            // Log the API response
             $responseContent = json_decode($response->getBody()->getContents(), true);
             \Log::info('API response: ', $responseContent);
 
             return $responseContent;
         } catch (\Exception $e) {
-            // Log the error message
             \Log::error('Error when adding game: ',  ['error' => $e->getMessage()]);
+        }
+
+        return null;
+    }
+
+    public function getGameById($id)
+    {
+        try {
+            $response = $this->client->get($this->apiUrl . '/api/board-games/' . $id);
+            $game = json_decode($response->getBody()->getContents(), true);
+
+            // Log the data
+            \Log::info('Data for game details: ', (array) $game);
+
+            return $game;
+        } catch (\Exception $e) {
+            // Log the error message
+            \Log::error('Error when retrieving game details: ', ['error' => $e->getMessage()]);
+        }
+
+        return null;
+    }
+
+    public function getGameDetails($id)
+    {
+        try {
+            $response = $this->client->get($this->apiUrl . '/api/board-games/' . $id);
+            $gameDetails = json_decode($response->getBody()->getContents(), true);
+
+            // Log the game details
+            \Log::info('Game details from API: ', $gameDetails);
+
+            return $gameDetails;
+        } catch (\Exception $e) {
+            \Log::error('Error when retrieving game details: ', ['error' => $e->getMessage()]);
         }
 
         return null;
