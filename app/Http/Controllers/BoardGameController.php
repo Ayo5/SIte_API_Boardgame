@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\ApiService;
 use Illuminate\Http\Request;
 
-
 class BoardGameController extends Controller
 {
     protected $apiService;
@@ -15,18 +14,17 @@ class BoardGameController extends Controller
         $this->apiService = $apiService;
     }
 
-
-    public function index(Request $request, ApiService $apiService)
+    public function index(Request $request)
     {
         $cat = $request->get('cat', 'All');
-        $data = $apiService->getAllData();
+        $data = $this->apiService->getAllData();
 
         return view('index', compact('data', 'cat'));
     }
 
-    public function show($id, ApiService $apiService)
+    public function show($id)
     {
-        $data = $apiService->getAllData();
+        $data = $this->apiService->getAllData();
 
         if (!is_null($data) && is_array($data)) {
             $filteredData = array_filter($data, function ($value) use ($id) {
@@ -44,9 +42,9 @@ class BoardGameController extends Controller
         }
     }
 
-    public function edit($id, ApiService $apiService)
+    public function edit($id)
     {
-        $data = $apiService->getAllData();
+        $data = $this->apiService->getAllData();
         $filteredData = array_filter($data, function ($value) use ($id) {
             return $value['id'] == $id;
         });
@@ -65,7 +63,6 @@ class BoardGameController extends Controller
         return view('create');
     }
 
-
     public function update(Request $request, $id)
     {
         $data = $this->apiService->getAllData();
@@ -78,7 +75,6 @@ class BoardGameController extends Controller
             $gameData = reset($filteredData);
 
             if ($gameData) {
-
                 $gameData['name'] = $request->input('name');
                 $gameData['description'] = $request->input('description');
                 $gameData['price'] = $request->input('price');
@@ -94,7 +90,6 @@ class BoardGameController extends Controller
 
     public function destroy($id)
     {
-
         $data = $this->apiService->getAllData();
 
         $filteredData = array_filter($data, function ($value) use ($id) {

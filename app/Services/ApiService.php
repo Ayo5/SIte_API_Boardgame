@@ -47,8 +47,8 @@ class ApiService
         try {
             \Log::info('Adding game with data: ', $gameData);
 
-            $response = $this->client->post($this->apiUrl . '/api/board-games', [
-                'json' => $gameData
+            $response = $this->client->post($this->apiUrl, [
+                'form_params' => $gameData,
             ]);
 
             $responseContent = json_decode($response->getBody()->getContents(), true);
@@ -61,6 +61,8 @@ class ApiService
 
         return null;
     }
+
+
 
 
 }

@@ -23,7 +23,7 @@
                 <p class="game-description">{{ $d['description'] }}</p>
                 <p class="game-price">{{ $d['price'] }} €</p>
                 <button class="btn-game">
-                    <a href="{{ route('game.show', ['id' => $d['id']]) }}">Détails</a>
+                    <a href="{{ route('show', ['id' => $d['id']]) }}">Détails</a>
                 </button>
                 <button class="btn-game">
                     <a href="{{ route('edit', ['id' => $d['id']]) }}">Editer</a>
