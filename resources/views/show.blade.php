@@ -14,7 +14,11 @@
     <p>Nombre d'évaluations : {{ $firstDetail['number_rating'] }}</p>
     <p>Date de publication : {{ $firstDetail['published_date'] }}</p>
         <button class="btn-game"><a href="{{ route('edit', ['id' => $firstDetail['id']])}}">Editer </a></button>
-        <button class="btn-game"><a href="/delete">Supprimer </a></button>
+        <form action="{{ route('delete', ['id' => $firstDetail['id']]) }}" method="post">
+            @csrf
+            @method('DELETE')
+            <button class="btn-game">Supprimer</button>
+        </form>
     </div>
 </div>
 </body>
