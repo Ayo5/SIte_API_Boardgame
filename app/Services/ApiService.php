@@ -41,16 +41,19 @@ class ApiService
 
         return json_decode($response->getBody()->getContents(), true);
     }
-
     public function addGame($gameData)
     {
         try {
             \Log::info('Adding game with data: ', $gameData);
 
+            $imageName = uniqid() . '.' . $gameData['image']->getClientOriginalExtension();
+            $gameData['image']->move(public_path('/'), $imageName);
+            $gameData['image'] = $imageName;
             $response = $this->client->post($this->apiUrl, [
                 'form_params' => $gameData,
             ]);
 
+            // Log de la réponse de l'API
             $responseContent = json_decode($response->getBody()->getContents(), true);
             \Log::info('API response: ', $responseContent);
 

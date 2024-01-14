@@ -120,7 +120,10 @@ class BoardGameController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        // Appel de la fonction addGame du service API avec les données validées
         $this->apiService->addGame($validatedData);
+
         return redirect()->route('index')->with('success', 'Le jeu a été ajouté avec succès.');
     }
+
 }
