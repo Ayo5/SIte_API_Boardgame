@@ -16,7 +16,7 @@
 
 <h1> Liste des jeux </h1>
 <div class="container">
-    @foreach($data as $d)
+@foreach($data as $d)
         <div href="" class="game-card">
             <p class="game-title">{{ $d['name'] }}</p>
             <img src="{{ asset($d['image']) }}" alt="Description de l'image" class="game-image">

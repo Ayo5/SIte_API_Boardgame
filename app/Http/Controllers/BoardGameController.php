@@ -21,22 +21,26 @@ class BoardGameController extends Controller
         $cat = $request->get('cat', 'All');
         $data = $apiService->getAllData();
 
-
         return view('index', compact('data', 'cat'));
     }
 
     public function show($id, ApiService $apiService)
     {
         $data = $apiService->getAllData();
-        $filteredData = array_filter($data, function ($value) use ($id) {
-            return $value['id'] == $id;
-        });
-        if ($filteredData) {
-            $gameData = reset($filteredData);
 
-            return view('show', compact('gameData'));
+        if (!is_null($data) && is_array($data)) {
+            $filteredData = array_filter($data, function ($value) use ($id) {
+                return $value['id'] == $id;
+            });
+
+            if ($filteredData) {
+                $gameData = reset($filteredData);
+                return view('show', compact('gameData'));
+            } else {
+                return 'Aucune donnée disponible pour l\'ID spécifié.';
+            }
         } else {
-            return 'Aucune donnée disponible pour l\'ID spécifié.';
+            return 'Erreur lors de la récupération des données depuis l\'API.';
         }
     }
 
