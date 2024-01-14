@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [BoardGameController::class, 'index'])->name('index');
+Route::get('/game/{id}', [BoardGameController::class, 'show'])->name('show');

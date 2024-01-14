@@ -27,5 +27,26 @@ class BoardGameController extends Controller
         return view('index', compact('data', 'cat'));
     }
 
+    public function show($id, ApiService $apiService)
+    {
+        $gameDetails = $apiService->getAllData();
+
+        // Filtrer les détails du jeu en fonction de l'ID
+        $filteredDetails = array_filter($gameDetails, function ($value) use ($id) {
+            return $value['id'] == $id;
+        });
+
+        if ($filteredDetails) {
+            // Utiliser reset() pour obtenir le premier élément du tableau filtré
+            $firstDetail = reset($filteredDetails);
+
+            return view('show', compact('firstDetail'));
+        } else {
+            return 'Aucune donnée disponible pour l\'ID spécifié.';
+        }
+    }
+
+
+
 
 }

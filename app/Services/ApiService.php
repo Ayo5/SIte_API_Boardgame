@@ -23,8 +23,17 @@ class ApiService
         return json_decode($response->getBody()->getContents(), true);
     }
 
+    public function getGameDetails($id)
+    {
 
+            $response = $this->client->get($this->apiUrl . '/api/board-games/' . $id);
+            $gameDetails = json_decode($response->getBody()->getContents(), true);
 
+            // Log the game details
+            \Log::info('Game details from API: ', $gameDetails);
 
-    // Ajoutez d'autres méthodes pour les opérations CRUD
+            return $gameDetails;
+
+    }
+// Ajoutez d'autres méthodes pour les opérations CRUD
 }

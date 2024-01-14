@@ -18,11 +18,12 @@
 <h1> Liste des jeux </h1>
 <div class="container">
     @foreach($data as $d)
-        <div class="game-card">
+        <div href="" class="game-card">
             <p class="game-title">{{ $d['name'] }}</p>
             <img src="{{ asset($d['image']) }}" alt="Description de l'image" class="game-image">
             <p class="game-description">{{ $d['description'] }}</p>
             <p class="game-price">{{ $d['price'] }} €</p>
+            <button class="btn-game"><a href="{{ route('show', ['id' => $d['id']])}}">Détails </a></button>
             <button class="btn-game"><a href="/edit">Editer </a></button>
             <button class="btn-game"><a href="/delete">Supprimer </a></button>
 
